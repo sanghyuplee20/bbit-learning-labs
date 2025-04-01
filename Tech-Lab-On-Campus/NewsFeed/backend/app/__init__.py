@@ -25,13 +25,41 @@ def create_app():
     @app.route("/get-newsfeed", methods=["GET"])
     def get_newsfeed() -> Response:
         """Flask route to get the latest newsfeed from datastore."""
-        # PART 1
-        return jsonify({}, 200)
+        try:
+            articles = newsfeed.get_all_news()
+            articles_data = [
+                {
+                    "author": article.author,
+                    "title": article.title,
+                    "body": article.body,
+                    "publish_date": article.publish_date.isoformat(),
+                    "image_url": article.image_url,
+                    "url": article.url,
+                }
+                for article in articles
+            ]
+            return jsonify(articles_data), 200
+        except Exception as e:
+            return jsonify({"error": str(e)}), 404
 
     @app.route("/get-featured-article", methods=["GET"])
     def get_featured_article() -> Response:
         """Flask route to get the featured article from datastore."""
-        # PART 2
-        return jsonify({}, 200)
+        try:
+            article = newsfeed.get_featured_news()
+            if article:
+                article_data = {
+                    "author": article.author,
+                    "title": article.title,
+                    "body": article.body,
+                    "publish_date": article.publish_date.isoformat(),
+                    "image_url": article.image_url,
+                    "url": article.url,
+                }
+                return jsonify(article_data), 200
+            else:
+                return jsonify({"message": "No featured article available"}), 204
+        except Exception as e:
+            return jsonify({"error": str(e)}), 404
 
     return app

@@ -60,6 +60,7 @@ export default function News() {
             try {
                 const featuredRes = await fetch('/api/news/get-featured-article');
                 const featuredData = await featuredRes.json();
+                console.log(featuredData);
                 setFeaturedArticle(featuredData);
     
                 const newsRes = await fetch('/api/news/get-newsfeed');

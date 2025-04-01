@@ -3,7 +3,7 @@
 from dataclasses import dataclass
 from datetime import datetime
 
-from app.utils.redis import REDIS
+from app.utils.redis import REDIS_CLIENT
 
 
 @dataclass
@@ -23,8 +23,8 @@ def get_all_news() -> list[Article]:
     # 1. Use Redis client to fetch all articles
     # 2. Format the data into articles
     # 3. Return a list of the articles formatted 
-
-    all_articles: list[dict] = REDIS.get_entry("all_articles")
+ 
+    all_articles: list[dict] = REDIS_CLIENT.get_entry("all_articles")
 
     if all_articles is None:
         return []

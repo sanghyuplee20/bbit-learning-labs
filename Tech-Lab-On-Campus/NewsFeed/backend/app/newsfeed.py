@@ -36,20 +36,6 @@ def get_featured_news() -> Article | None:
     """Get the featured news article from the datastore."""
     # 1. Get all the articles
     # 2. Return as a list of articles sorted by most recent date
-<<<<<<< HEAD
-    return None
-
-def format_as_article(data: dict) -> Article:
-    return Article(
-        author=data["author"],
-        title=data["title"],
-        body=data["text"],
-        publish_date=datetime.fromisoformat(data["published"]),
-        image_url=data["thread"]["main_image"],
-        url=data["url"],
-    )
-
-=======
     all_news = get_all_news()
 
     if all_news is None:
@@ -74,4 +60,3 @@ def _format_as_article(data:dict) -> Article:
     
     except Exception as e:
         raise ValueError(f"Error formatting article: {e}")
->>>>>>> 800fa9bfdd41b9541b3fa74499ce4fb7dd269227

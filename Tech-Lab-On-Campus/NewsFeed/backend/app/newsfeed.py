@@ -29,3 +29,14 @@ def get_featured_news() -> Article | None:
     # 1. Get all the articles
     # 2. Return as a list of articles sorted by most recent date
     return None
+
+def format_as_article(data: dict) -> Article:
+    return Article(
+        author=data["author"],
+        title=data["title"],
+        body=data["text"],
+        publish_date=datetime.fromisoformat(data["published"]),
+        image_url=data["thread"]["main_image"],
+        url=data["url"],
+    )
+
